@@ -58,4 +58,16 @@ fetch('http://localhost:5678/api/works')
     }
   });
 })
+let loginForm = document.querySelector('#login form');
+loginForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  let username = document.querySelector('#username').value;
+  let password = document.querySelector('#password').value;
+  loginForm.innerHTML = `<p>Nom d'utilisateur: ${username}</p><p>Mot de passe: ${password}</p>`;
+  const loginData = document.querySelector('#login form').elements;
+  const formData = {
+    username: loginData.username.value,
+    password: loginData.password.value
+  };
+})
 
