@@ -143,10 +143,23 @@ flex-direction: column;
 
 .button-filters {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
+	gap: 10px;
 	margin-bottom: 16px;
-	
+}
+.button-filters button {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: #1D6154;
+	background-color: white;
+	border: 1px solid #1D6154;
+	padding: 10px 20px;
+	border-radius: 60px ;
+}
+.button-filters button:hover {
+	background-color: #1D6154;
+	color: white;
 }
 #contact {
 	width: 50%;

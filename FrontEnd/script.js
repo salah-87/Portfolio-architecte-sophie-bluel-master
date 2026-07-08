@@ -31,8 +31,9 @@ function fetchCategories() {
       categories.forEach(category => {
           const buttonFilters = document.querySelector('.button-filters');
         let button = document.createElement('button');
-        button.textContent = category.title;
+        button.textContent = category.name;
         buttonFilters.appendChild(button);
+        
       });
     })
     .catch(error => {
