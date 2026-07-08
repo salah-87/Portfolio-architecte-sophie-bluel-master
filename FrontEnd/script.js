@@ -33,7 +33,7 @@ function fetchCategories() {
         let button = document.createElement('button');
         button.textContent = category.name;
         buttonFilters.appendChild(button);
-        
+
       });
     })
     .catch(error => {
@@ -41,3 +41,21 @@ function fetchCategories() {
     });
 }
 fetchCategories()
+
+fetch('http://localhost:5678/api/works')
+.then(response => response.json())
+.then(works => {
+  const buttonFilters = document.querySelector('.button-filters');
+  buttonFilters.addEventListener('click', (event) => {
+    if (event.target.tagName === 'BUTTON') {
+      const categoryName = event.target.textContent;
+      const filteredWorks = categoryName === 'Tout' ? works : works.filter(work => work.category.name === categoryName);
+      const gallery = document.querySelector('.figure');
+      gallery.innerHTML = '';
+      filteredWorks.forEach(work => {
+        createGallery(work);
+      });
+    }
+  });
+})
+
