@@ -60,9 +60,26 @@ fetch('http://localhost:5678/api/works')
   });
 
 // Redirection vers la page login
+const token = localStorage.getItem('token');
 const loginButton = document.getElementById('loginBtn');
-if (loginButton) {
-  loginButton.addEventListener('click', () => {
-    window.location.href = 'login.html';
-  });
+
+if (token) {
+  // Utilisateur connecté → afficher le bandeau + transformer "login" en "logout"
+  const editBanner = document.querySelector('.edit-banner');
+  if (editBanner) editBanner.style.display = 'flex';
+
+  if (loginButton) {
+    loginButton.textContent = 'logout';
+    loginButton.addEventListener('click', () => {
+      localStorage.removeItem('token');
+      window.location.href = 'index.html';
+    });
+  }
+} else {
+  // Utilisateur non connecté =  normal
+  if (loginButton) {
+    loginButton.addEventListener('click', () => {
+      window.location.href = 'login.html';
+    });
+  }
 }

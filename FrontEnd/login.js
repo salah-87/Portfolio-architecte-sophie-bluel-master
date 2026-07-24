@@ -1,4 +1,4 @@
-// 1. On récupère le formulaire par son id
+//  Je récupère le formulaire par son id
 const loginForm = document.getElementById('login-form');
 if (loginForm) {
   loginForm.addEventListener('submit', function(event) {
@@ -14,17 +14,18 @@ if (loginForm) {
       },
       body: JSON.stringify({ email, password })
     })
-    .then(response => response.json())
-    .then(data => {
-      // TODO: gérer la réponse du backend (ex: stocker le token, rediriger vers la page d'accueil, etc.)
-    })
-    .catch(error => {
-      console.error('Erreur lors de la connexion :', error);
-    });
+      .then(response => response.json())
+      .then(data => {
+        localStorage.setItem('token', data.token);
+        window.location.href = 'index.html';
+      })
+      .catch(error => {
+        console.error('Erreur lors de la connexion :', error);
+      });
   });
 }
 // retour vers la page d'accueil   
-const loginButton = document.getElementById('loginBtn');
+const loginButton = document.getElementById('projects-link');
 if (loginButton) {
   loginButton.addEventListener('click', () => {
     window.location.href = 'index.html';
