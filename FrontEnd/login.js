@@ -1,4 +1,3 @@
-//  Je récupère le formulaire par son id
 const loginForm = document.getElementById('login-form');
 if (loginForm) {
   loginForm.addEventListener('submit', function(event) {
@@ -7,7 +6,7 @@ if (loginForm) {
     const email = document.querySelector('#email').value;
     const password = document.querySelector('#password').value;
 
-   fetch('http://localhost:5678/api/users/login', {
+    fetch('http://localhost:5678/api/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -24,7 +23,7 @@ if (loginForm) {
       });
   });
 }
-// retour vers la page d'accueil   
+
 const loginButton = document.getElementById('projects-link');
 if (loginButton) {
   loginButton.addEventListener('click', () => {
