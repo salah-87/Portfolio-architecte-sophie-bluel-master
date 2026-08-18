@@ -83,3 +83,15 @@ if (token) {
     });
   }
 }
+
+const modifierBtn = document.querySelector('.modifier-btn');
+const backgroundModale = document.getElementById('background-modale');
+
+modifierBtn.addEventListener('click', () => {
+  backgroundModale.style.display = 'flex';
+});
+const closeModaleBtn = document.getElementById('close-modale');
+
+closeModaleBtn.addEventListener('click', () => {
+  backgroundModale.style.display = 'none';
+});

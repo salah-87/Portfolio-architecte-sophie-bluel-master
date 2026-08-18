@@ -142,6 +142,64 @@ li:hover {
   width: 100%;
   
 }
+.projects-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+.projects-header h2 {
+  margin-bottom: 0;
+}
+
+.modifier-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.modifier-btn img {
+  width: 16px;
+  height: 16px;
+}
+#background-modale {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#modale {
+  background-color: white;
+  border-radius: 10px;
+  width: 630px;
+  max-width: 90%;
+  max-height:688px;
+  height: 100%;
+  overflow-y: auto;
+  padding: 30px 40px;
+}
+.top-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#close-modale {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
 .gallery {
 display: flex;
 flex-direction: column;
