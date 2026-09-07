@@ -13,20 +13,29 @@ if (loginForm) {
       },
       body: JSON.stringify({ email, password })
     })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Identifiants incorrects');
+        }
+        return response.json();
+      })
       .then(data => {
         localStorage.setItem('token', data.token);
         window.location.href = 'index.html';
       })
       .catch(error => {
         console.error('Erreur lors de la connexion :', error);
+        afficherErreur();
       });
   });
 }
 
-const loginButton = document.getElementById('projects-link');
-if (loginButton) {
-  loginButton.addEventListener('click', () => {
-    window.location.href = 'index.html';
-  });
+function afficherErreur() {
+  let errorMsg = document.querySelector('.error-message');
+  if (!errorMsg) {
+    errorMsg = document.createElement('p');
+    errorMsg.classList.add('error-message');
+    loginForm.appendChild(errorMsg);
+  }
+  errorMsg.textContent = 'Email ou mot de passe incorrect';
 }

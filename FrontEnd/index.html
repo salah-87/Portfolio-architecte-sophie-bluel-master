@@ -55,7 +55,65 @@
           <div class="separator-modale"></div>
           <button id="add-image" class="button">Ajouter une photo</button>
         </div>
-        <div class="content-modale" id="view-ajout-photo"></div>
+        <div class="content-modale" id="view-ajout-photo">
+          <button id="back-to-gallery">
+            <svg
+              width="21"
+              height="21"
+              viewBox="0 0 21 21"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0.439478 8.94458C-0.146493 9.53055 -0.146493 10.4822 0.439478 11.0681L7.9399 18.5686C8.52587 19.1545 9.47748 19.1545 10.0635 18.5686C10.6494 17.9826 10.6494 17.031 10.0635 16.445L5.11786 11.5041H19.4999C20.3297 11.5041 21 10.8338 21 10.004C21 9.17428 20.3297 8.50393 19.4999 8.50393H5.12255L10.0588 3.56303C10.6447 2.97706 10.6447 2.02545 10.0588 1.43948C9.47279 0.853507 8.52118 0.853507 7.93521 1.43948L0.43479 8.9399L0.439478 8.94458Z"
+                fill="black"
+              />
+            </svg>
+          </button>
+          <h2 class="legend">Ajout photo</h2>
+
+          <form id="add-photo-form">
+            <div class="upload-zone" id="upload-zone">
+              <svg
+                class="upload-icon"
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="#B9C5CC"
+              >
+                <path
+                  d="M21 19V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM8.5 13.5l2.5 3 3.5-4.5 4.5 6H5l3.5-4.5z"
+                />
+              </svg>
+              <label for="photo-file" class="btn-upload">+ Ajouter photo</label>
+              <input
+                type="file"
+                id="photo-file"
+                accept="image/png, image/jpeg"
+                hidden
+              />
+              <p class="upload-hint">jpg, png : 4mo max</p>
+            </div>
+
+            <label for="photo-title">Titre</label>
+            <input type="text" id="photo-title" name="title" required />
+
+            <label for="photo-category">Catégorie</label>
+            <select id="photo-category" name="category" required>
+              <option value="" disabled selected></option>
+            </select>
+
+            <div class="separator-modale"></div>
+            <button
+              type="submit"
+              id="validate-btn"
+              class="btn-validate"
+              disabled
+            >
+              Valider
+            </button>
+          </form>
+        </div>
       </div>
     </div>
     <div id="add-image-modale"></div>
