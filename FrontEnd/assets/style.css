@@ -168,6 +168,14 @@ li:hover {
   width: 16px;
   height: 16px;
 }
+.forgot-password {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #1D6154;
+  text-decoration: underline;
+}
 .error-message {
   color: #e63946;
   font-size: 13px;
