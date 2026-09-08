@@ -61,7 +61,7 @@ document.querySelector('.button-filters').addEventListener('click', (event) => {
   }
 });
 
-// Mode admin 
+// Mode admin
 const token = localStorage.getItem('token');
 const loginButton = document.getElementById('loginBtn');
 
@@ -117,10 +117,26 @@ function renderModaleGallery() {
   });
 }
 
+// Suppression réelle via l'API 
 function deleteWork(id) {
-  allWorks = allWorks.filter(work => work.id !== id);
-  renderModaleGallery();
-  refreshMainGallery();
+  fetch(`http://localhost:5678/api/works/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erreur lors de la suppression');
+      }
+    
+      allWorks = allWorks.filter(work => work.id !== id);
+      renderModaleGallery();
+      refreshMainGallery();
+    })
+    .catch(error => {
+      console.error('Erreur lors de la suppression :', error);
+    });
 }
 
 function refreshMainGallery() {
@@ -213,27 +229,41 @@ function resetAddForm() {
   uploadZone.classList.remove('has-preview');
 }
 
+// Ajout via l'API 
 addPhotoForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
   const file = fileInput.files[0];
   if (!file) return;
 
-  const newWork = {
-    id: Date.now(),
-    title: titleInput.value.trim(),
-    imageUrl: URL.createObjectURL(file),
-    category: {
-      id: categorySelect.value,
-      name: categorySelect.options[categorySelect.selectedIndex].textContent
-    }
-  };
+  const formData = new FormData();
+  formData.append('image', file);
+  formData.append('title', titleInput.value.trim());
+  formData.append('category', categorySelect.value);
 
-  allWorks.push(newWork);
-  renderModaleGallery();
-  refreshMainGallery();
-  resetAddForm();
+  fetch('http://localhost:5678/api/works', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    },
+    body: formData
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'ajout');
+      }
+      return response.json();
+    })
+    .then(newWork => {  
+  
+      renderModaleGallery();
+      refreshMainGallery();
+      resetAddForm();
 
-  viewAjoutPhoto.style.display = 'none';
-  viewGaleriePhoto.style.display = 'block';
+      viewAjoutPhoto.style.display = 'none';
+      viewGaleriePhoto.style.display = 'block';
+    })
+    .catch(error => {
+      console.error('Erreur lors de l\'ajout :', error);
+    });
 });

@@ -384,25 +384,30 @@ input[type="submit"]{
   margin-bottom: 20px;
   color: #B9C5CC;
   height: 190px;
+  width: 100%;
   position: relative;
   overflow: hidden;
 }
 
 .upload-zone.has-preview {
-  padding: 0;
+  padding: 0 !important;
 }
 
-.upload-zone.has-preview .upload-icon,
-.upload-zone.has-preview .btn-upload,
-.upload-zone.has-preview .upload-hint {
-  display: none;
+#add-photo-form .upload-zone.has-preview .upload-icon,
+#add-photo-form .upload-zone.has-preview .btn-upload,
+#add-photo-form .upload-zone.has-preview .upload-hint {
+  display: none !important;
 }
 
 .upload-zone img.preview {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center;
   display: block;
+  margin: 0;
 }
 
 .btn-upload {
