@@ -1,6 +1,11 @@
 let allWorks = [];
 let allCategories = [];
 
+/**
+ * Adds one work to the main gallery (figure, image and caption).
+ * Uses textContent and alt instead of innerHTML to avoid XSS.
+ * @param {{title: string, imageUrl: string}} work - A work returned by the API.
+ */
 function createGallery(work) {
   const gallery = document.querySelector('.figure');
   let figure = document.createElement('figure');
@@ -14,6 +19,9 @@ function createGallery(work) {
   gallery.appendChild(figure);
 }
 
+/**
+ * Loads all works from the API, stores them in allWorks and displays them.
+ */
 function fetchWorks() {
   fetch('http://localhost:5678/api/works')
     .then(response => response.json())
@@ -29,6 +37,9 @@ function fetchWorks() {
 }
 fetchWorks();
 
+/**
+ * Loads the categories from the API and creates one filter button per category.
+ */
 function fetchCategories() {
   fetch('http://localhost:5678/api/categories')
     .then(response => response.json())
@@ -91,6 +102,9 @@ if (token) {
 }
 
 // Modale galerie photo
+/**
+ * Displays the works in the modal, each with a trash icon to delete it.
+ */
 function renderModaleGallery() {
   const galleryModale = document.getElementById('gallery-modale');
   galleryModale.innerHTML = '';
@@ -118,6 +132,11 @@ function renderModaleGallery() {
 }
 
 // Suppression réelle via l'API 
+/**
+ * Deletes a work through the API (token required), then updates both galleries
+ * without reloading the page.
+ * @param {number} id - Id of the work to delete.
+ */
 function deleteWork(id) {
   fetch(`http://localhost:5678/api/works/${id}`, {
     method: 'DELETE',
@@ -139,6 +158,9 @@ function deleteWork(id) {
     });
 }
 
+/**
+ * Redraws the main gallery from allWorks.
+ */
 function refreshMainGallery() {
   const gallery = document.querySelector('.figure');
   gallery.innerHTML = '';
@@ -176,9 +198,12 @@ backToGalleryBtn.addEventListener('click', () => {
 });
 
 // Formulaire Ajout photo
+/**
+ * Fills the category list of the "add a photo" form.
+ */
 function fillCategorySelect() {
   const categorySelect = document.getElementById('photo-category');
-  categorySelect.innerHTML = '<option value="" disabled selected></option>';
+  categorySelect.innerHTML = '<option value="" disabled selected label=" "></option>';
   allCategories.forEach(cat => {
     const opt = document.createElement('option');
     opt.value = cat.id;
@@ -211,6 +236,9 @@ fileInput.addEventListener('change', () => {
   checkFormValid();
 });
 
+/**
+ * Enables the submit button only when a file, a title and a category are given.
+ */
 function checkFormValid() {
   const valid = titleInput.value.trim() !== '' &&
                 categorySelect.value !== '' &&
@@ -221,6 +249,9 @@ function checkFormValid() {
 titleInput.addEventListener('input', checkFormValid);
 categorySelect.addEventListener('change', checkFormValid);
 
+/**
+ * Empties the "add a photo" form and removes the image preview.
+ */
 function resetAddForm() {
   addPhotoForm.reset();
   validateBtn.disabled = true;
@@ -254,8 +285,10 @@ addPhotoForm.addEventListener('submit', (event) => {
       }
       return response.json();
     })
-    .then(newWork => {  
-  
+    .then(newWork => {
+      // The API answers with categoryId only: add the category object so the filters still work.
+      const category = allCategories.find(cat => cat.id === Number(newWork.categoryId));
+      allWorks.push({ ...newWork, category });
       renderModaleGallery();
       refreshMainGallery();
       resetAddForm();
